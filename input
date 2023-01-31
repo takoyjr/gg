@@ -1,0 +1,5 @@
+function f(e) {
+    e.value=e.value.replace(/[0-9]/g, '');
+    //oninput="f(this)"
+}
+только цифры e.value.replace (/\D/g, '');
