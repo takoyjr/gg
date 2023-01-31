@@ -1,0 +1,46 @@
+---------- Вывод БД
+<table>
+        <?php
+        echo "</br>";
+        echo "</br>";
+        echo "</br>";
+        echo "</br>";  
+         $link = mysqli_connect("localhost", "root", "", "project", 3306);
+         if(!$link) {
+            echo "Ошибка: Невозможно установить соединение с MySQL." . PHP_EOL;
+            echo "Код ошибки errno: " . mysqli_connect_errno() . PHP_EOL;
+            exit;
+         }
+         mysqli_set_charset($link, "utf8");
+         if($result = mysqli_query($link, "SELECT workers.workFIO,exercise.exDate,exercise.exEndDate,exercise.exMark FROM exercise INNER JOIN workers on workers.worknumb = exercise.worknumb")){
+            echo "<tr>";
+            echo "<td style='font-size:30px;border:10px solid #342E2A'>"."workFIO"."</td>";
+            echo "<td style='font-size:30px;border:10px solid #342E2A'>"."exDate"."</td>";
+            echo "<td style='font-size:30px;border:10px solid #342E2A'>"."exEndDate"."</td>";
+            echo "<td style='font-size:30px;border:10px solid #342E2A'>"."exMark"."</td>";
+            echo "</tr>";
+            
+
+            while($row = mysqli_fetch_assoc($result)){
+                echo "<tr>";
+                echo "<td style='font-size:30px;border:10px solid #342E2A'>".$row["workFIO"]."</td>";
+                echo "<td style='font-size:30px;border:10px solid #342E2A'>".$row["exDate"]."</td>";
+                echo "<td style='font-size:30px;border:10px solid #342E2A'>".$row["exEndDate"]."</td>";
+                echo "<td style='font-size:30px;border:10px solid #342E2A'>".$row["exMark"]."</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+         mysqli_free_result($result);
+         }
+         else echo "fff";
+         
+        ?>
+        </table>
+        ---------------------------------
+        Подключение БД
+        $link = mysqli_connect("localhost", "root", "", "project",3306);
+        mysqli_set_charset($link, "utf8");
+        mysqli_connect("localhost","root","root",3306)
+        $query=mysqli_query($link,"insert into Exercise values('$exNumb','$ProjectNumb','$workNumb','$exDate','$exEndDate','$exMark')"); /* Запрос на добавление */
+        if ( $query==true) header("Location: ExercisePage.php");
+mysqli_close($link);
